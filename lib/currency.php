@@ -11,7 +11,5 @@ interface Currency
 
     public function name(): string;
 
-    public function fullName(): string ;
-
-    public function e(): int ;
+    public function fullName(): string;
 }
