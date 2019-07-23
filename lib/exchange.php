@@ -2,22 +2,25 @@
 declare(strict_types=1);
 
 namespace J\Money;
-use Money\Currency;
-use Brick\Money\ExchangeRateProvider;
-use Brick\Money\ExchangeRateProvider\BaseCurrencyProvider;
-use Money\CurrencyPair;
-use Swap\Builder;
 
 class Exchange
 {
-    public function __construct()
-    {
-    }
 
-public function currencyPair()
-{
-    $pair = new CurrencyPair(new Currency('EUR'), new Currency('USD'), 16);
-    return $pair;
-}
+    function convertCurrency($amount, $from_currency, $to_currency)
+    {
+        $apikey = 'd0c5bd0a60b691de29ce';
+
+        $from_Currency = urlencode($from_currency);
+        $to_Currency = urlencode($to_currency);
+        $query = "{$from_Currency}_{$to_Currency}";
+
+        $json = file_get_contents("https://free.currconv.com/api/v7/convert?q={$query}&compact=ultra&apiKey={$apikey}");
+        $obj = json_decode($json, true);
+
+        $val = floatval($obj["$query"]);
+
+        $total = $val * $amount;
+        return number_format($total, 2, '.', '');
+    }
 
 }

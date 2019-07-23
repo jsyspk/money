@@ -2,12 +2,9 @@
 declare(strict_types=1);
 
 namespace J\Imap\Tests;
-use Brick\Math\RoundingMode;
-use Brick\Money\Money;
-use J\Money\CurrencyConverter1;
+
 use J\Money\Exchange;
 use PHPUnit\Framework\TestCase;
-use Brick\Money\CurrencyConverter;
 
 
 class ExchangeTest extends TestCase
@@ -17,11 +14,19 @@ class ExchangeTest extends TestCase
     {
 
     }
-    public function test_must_not_initialize_with__invalid_amount()
-    {
 
+    public function test_can_initialize_with_valid_values()
+    {
+        $amount = 23;
+        $from = 'PKR';
+        $to = 'USD';
         $currency = new Exchange();
-        $currency->some();
+        $currency->convertCurrency($amount, $from, $to);
+        $expectedResult = 0.14;
+        $this->assertInstanceOf('J\Money\Exchange', $currency);
+        $this->assertEquals('J\Money\Exchange', get_class($currency));
+        $this->assertEquals($expectedResult, $currency->convertCurrency($amount, $from, $to), 'Both must get the same value');
+
     }
 
 
