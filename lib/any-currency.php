@@ -2,40 +2,42 @@
 declare(strict_types=1);
 
 namespace J\Money;
-
-abstract class AnyCurrency implements Currency
+Class AnyCurrency
 {
     protected $symbol;
+    protected $anyCurrency;
     protected $isoCode;
-    protected $shortName;
-    protected $fullName;
 
-    protected $decimalPlaces;
-
-
-    public function __construct(string $host)
+    public function __construct(float $anyCurrency, string $isoCode)
     {
-        $this->host = $host;
-    }
-
-    public function sign(): string
-    {
-        return self::SIGN;
-    }
-
-    public function code(): string
-    {
+        $this->anyCurrency = $anyCurrency;
+        $this->isoCode = $isoCode;
 
     }
 
-    public function name(): string
+    /**
+     * @return float
+     */
+    public function getAnyCurrency(): float
     {
-
+        return $this->anyCurrency;
     }
 
-    public function fullName(): string
+    /**
+     * @return string
+     */
+    public function getIsoCode(): string
     {
-
+        return $this->isoCode;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSymbol()
+    {
+        return $this->symbol;
+    }
+
 
 }
